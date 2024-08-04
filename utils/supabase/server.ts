@@ -17,13 +17,24 @@ export const createClient = () => {
             cookiesToSet.forEach(({ name, value, options }) => {
               cookieStore.set(name, value, options);
             });
-          } catch (error) {
-            // The `set` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
-          }
+          } catch (error) {}
         },
       },
     }
   );
+};
+
+export const canInitSupabaseClient = () => {
+  try {
+    createClient();
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const isAuthenticated = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  return !error && data?.user;
 };
