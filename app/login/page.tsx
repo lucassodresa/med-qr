@@ -21,13 +21,9 @@ const signInWithGoogle = async () => {
 
 export default function Login() {
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-        <SubmitButton
-          formAction={signInWithGoogle}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-          pendingText="Signing In..."
-        >
+    <div>
+      <form>
+        <SubmitButton formAction={signInWithGoogle} pendingText="Signing In...">
           Login with Google
         </SubmitButton>
       </form>
