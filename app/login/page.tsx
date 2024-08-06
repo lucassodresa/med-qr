@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { SubmitButton } from "./submit-button";
 import loginCoverPhoto from "@/public/images/login-cover-photo.webp";
-import { Header } from "@/components/header";
 
 const signInWithGoogle = async () => {
   "use server";
@@ -25,7 +24,6 @@ const signInWithGoogle = async () => {
 export default function Login() {
   return (
     <>
-      <Header />
       <main className="w-full h-screen lg:grid lg:grid-cols-2">
         <div className="grid items-center justify-center px-4 md:px-6">
           <div className="grid gap-8">

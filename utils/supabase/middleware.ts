@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
+const PUBLIC_PATHS = ["/login", "/auth/callback"];
+
 export const updateSession = async (request: NextRequest) => {
   try {
     let response = NextResponse.next({
@@ -31,7 +33,18 @@ export const updateSession = async (request: NextRequest) => {
         },
       }
     );
-    await supabase.auth.getUser();
+    const { data } = await supabase.auth.getUser();
+    const isLoggedIn = !!data.user;
+    const isPublicPath = PUBLIC_PATHS.includes(request.nextUrl.pathname);
+    const origin = new URL(request.url).origin;
+
+    if (!isLoggedIn && !isPublicPath) {
+      return NextResponse.redirect(`${origin}/login`);
+    }
+
+    if (isLoggedIn && isPublicPath) {
+      return NextResponse.redirect(`${origin}/records`);
+    }
 
     return response;
   } catch (e) {

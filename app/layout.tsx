@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
+import { createClient } from "@/utils/supabase/server";
+import { Header } from "@/components/header";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -17,11 +19,14 @@ export const metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createClient();
+  const { data } = await supabase.auth.getUser();
+
   return (
     <html lang="en">
       <body
@@ -30,6 +35,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
+        <Header user={data.user!} />
         <main>{children}</main>
       </body>
     </html>
