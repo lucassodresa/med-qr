@@ -1,5 +1,4 @@
 import { createServerClient } from "@supabase/ssr";
-import { redirect } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
@@ -11,8 +10,8 @@ export const updateSession = async (request: NextRequest) => {
     });
 
     const supabase = createServerClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_ANON_KEY!,
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
           getAll() {
@@ -32,19 +31,10 @@ export const updateSession = async (request: NextRequest) => {
         },
       }
     );
-
     await supabase.auth.getUser();
 
     return response;
   } catch (e) {
-    const url = new URL(request.url);
-    const isLoginPage = url.pathname === "/login";
-
-    if (!isLoginPage) {
-      const loginPageURL = new URL("/login", request.url);
-      return NextResponse.redirect(loginPageURL);
-    }
-
     return NextResponse.next({
       request: {
         headers: request.headers,

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { SubmitButton } from "./submit-button";
 import loginCoverPhoto from "@/public/images/login-cover-photo.webp";
+import { Header } from "@/components/header";
 
 const signInWithGoogle = async () => {
   "use server";
@@ -23,28 +24,38 @@ const signInWithGoogle = async () => {
 
 export default function Login() {
   return (
-    <div className="w-full h-screen lg:grid lg:grid-cols-2">
-      <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
-            </p>
+    <>
+      <Header />
+      <main className="w-full h-screen lg:grid lg:grid-cols-2">
+        <div className="grid items-center justify-center px-4 md:px-6">
+          <div className="grid gap-8">
+            <div className="grid gap-8">
+              <h1 className="text-5xl font-bold">Welcome to MedQR</h1>
+              <p className="text-balance text-muted-foreground">
+                Access your medical history quickly and securely, wherever you
+                are. In case of an emergency, provide your essential information
+                instantly with a simple QR code scan.
+              </p>
+            </div>
+            <form>
+              <SubmitButton
+                formAction={signInWithGoogle}
+                pendingText="Signing In..."
+              >
+                Login with Google
+              </SubmitButton>
+            </form>
           </div>
-          <form className="grid gap-4">
-            <SubmitButton
-              formAction={signInWithGoogle}
-              pendingText="Signing In..."
-            >
-              Login with Google
-            </SubmitButton>
-          </form>
         </div>
-      </div>
-      <div className="hidden  lg:block overflow-hidden">
-        <Image src={loginCoverPhoto} alt="Image" sizes="50vw" priority={true} />
-      </div>
-    </div>
+        <div className="hidden  lg:block overflow-hidden">
+          <Image
+            src={loginCoverPhoto}
+            alt="Image"
+            sizes="50vw"
+            priority={true}
+          />
+        </div>
+      </main>
+    </>
   );
 }
