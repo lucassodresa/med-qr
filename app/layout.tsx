@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 import { Inter as FontSans } from "next/font/google";
 import { createClient } from "@/utils/supabase/server";
 import { Header } from "@/components/header";

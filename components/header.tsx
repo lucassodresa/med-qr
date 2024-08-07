@@ -1,6 +1,6 @@
 import { User } from "@supabase/supabase-js";
-import { Navbar } from "./navbar";
-import { AvatarInfo } from "./avatar-info";
+import { Navbar } from "@/components/navbar";
+import { AvatarInfo } from "@/components/avatar-info";
 
 export type HeaderProps = {
   user?: User;

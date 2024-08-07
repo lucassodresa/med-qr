@@ -2,7 +2,7 @@ import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Logo } from "./logo";
+import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
