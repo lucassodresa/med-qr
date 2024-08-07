@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -15,7 +14,7 @@ const RECORDS = [
     name: "Lucas Sodré",
     healthCard: "700 9674 9916 0003",
     bloodType: "A+",
-    dateBirth: "1999-01-25T07:49:58.241Z",
+    birthDateString: "1999-01-25T00:50:00.241Z",
   },
 ];
 
@@ -33,8 +32,11 @@ export default async function Records() {
           </Button>
         </div>
         <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-          {RECORDS.map(({ name, healthCard, bloodType, dateBirth }) => {
-            const age = "73"; // update age calculation
+          {RECORDS.map(({ name, healthCard, bloodType, birthDateString }) => {
+            const birthDate = new Date(birthDateString).getTime();
+            const now = new Date().getTime();
+            const age = new Date(now - birthDate).getFullYear() - 1970;
+
             return (
               <Card
                 key={healthCard}
@@ -42,16 +44,14 @@ export default async function Records() {
               >
                 <CardHeader className="grid gap-4">
                   <CardTitle>{name}</CardTitle>
-                  <CardDescription>
-                    <div className="grid flex-1 auto-rows-min gap-0.5">
-                      <div className="text-sm text-muted-foreground">
-                        Health card
-                      </div>
-                      <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
-                        {healthCard}
-                      </div>
+                  <div className="grid flex-1 auto-rows-min gap-0.5">
+                    <div className="text-sm text-muted-foreground">
+                      Health card
                     </div>
-                  </CardDescription>
+                    <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
+                      {healthCard}
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="flex w-full items-center gap-2">
