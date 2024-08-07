@@ -7,9 +7,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { PlusCircle } from "lucide-react";
+
+const RECORDS = [
+  {
+    name: "Lucas Sodré",
+    healthCard: "700 9674 9916 0003",
+    bloodType: "A+",
+    dateBirth: "1999-01-25T07:49:58.241Z",
+  },
+];
 
 export default async function Records() {
   return (
@@ -25,96 +33,55 @@ export default async function Records() {
           </Button>
         </div>
         <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-          <Card className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-            <CardHeader>
-              <CardTitle>Store Name</CardTitle>
-              <CardDescription>
-                Used to identify your store in the marketplace.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form>
-                <Input placeholder="Store Name" />
-              </form>
-            </CardContent>
-            <CardFooter className="border-t px-6 py-4">
-              <Button>Save</Button>
-            </CardFooter>
-          </Card>
-          <Card className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-            <CardHeader>
-              <CardTitle>Plugins Directory</CardTitle>
-              <CardDescription>
-                The directory within your project, in which your plugins are
-                located.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form className="flex flex-col gap-4">
-                <Input
-                  placeholder="Project Name"
-                  defaultValue="/content/plugins"
-                />
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="include" defaultChecked />
-                  <label
-                    htmlFor="include"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Allow administrators to change the directory.
-                  </label>
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="border-t px-6 py-4">
-              <Button>Save</Button>
-            </CardFooter>
-          </Card>
-          <Card className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-            <CardHeader>
-              <CardTitle>Store Name</CardTitle>
-              <CardDescription>
-                Used to identify your store in the marketplace.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form>
-                <Input placeholder="Store Name" />
-              </form>
-            </CardContent>
-            <CardFooter className="border-t px-6 py-4">
-              <Button>Save</Button>
-            </CardFooter>
-          </Card>
-          <Card className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-            <CardHeader>
-              <CardTitle>Plugins Directory</CardTitle>
-              <CardDescription>
-                The directory within your project, in which your plugins are
-                located.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form className="flex flex-col gap-4">
-                <Input
-                  placeholder="Project Name"
-                  defaultValue="/content/plugins"
-                />
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="include" defaultChecked />
-                  <label
-                    htmlFor="include"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Allow administrators to change the directory.
-                  </label>
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="border-t px-6 py-4">
-              <Button>Save</Button>
-            </CardFooter>
-          </Card>
+          {RECORDS.map(({ name, healthCard, bloodType, dateBirth }) => {
+            const age = "73"; // update age calculation
+            return (
+              <Card
+                key={healthCard}
+                className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+              >
+                <CardHeader className="grid gap-4">
+                  <CardTitle>{name}</CardTitle>
+                  <CardDescription>
+                    <div className="grid flex-1 auto-rows-min gap-0.5">
+                      <div className="text-sm text-muted-foreground">
+                        Health card
+                      </div>
+                      <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
+                        {healthCard}
+                      </div>
+                    </div>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex w-full items-center gap-2">
+                    <div className="grid flex-1 auto-rows-min gap-0.5">
+                      <div className="text-xs text-muted-foreground">Blood</div>
+                      <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
+                        {bloodType}
+                      </div>
+                    </div>
+                    <Separator
+                      orientation="vertical"
+                      className="mx-2 h-10 w-px"
+                    />
+                    <div className="grid flex-1 auto-rows-min gap-0.5">
+                      <div className="text-xs text-muted-foreground">Age</div>
+                      <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
+                        {age}
+                        <span className="text-sm font-normal text-muted-foreground">
+                          years
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex flex-row border-t p-4">
+                  <Button className="w-full">View</Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
         </div>
       </main>
     </div>

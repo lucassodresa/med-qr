@@ -5,7 +5,7 @@ import Link from "next/link";
 export const Logo = () => {
   return (
     <Link
-      href="/"
+      href="/records"
       className={cn(
         "flex items-center gap-2 text-lg font-semibold md:text-base"
       )}
