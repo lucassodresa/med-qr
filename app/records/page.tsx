@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,15 +23,14 @@ export default async function Records() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-        <div className="flex items-center justify-between w-full">
-          <h1 className="text-3xl font-semibold">Records</h1>
-          <Button size="sm" className="h-8 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Record
-            </span>
-          </Button>
-        </div>
+        <PageHeader
+          title="Records"
+          link={{
+            href: "/records/create/personal-identification",
+            text: "Create Record",
+            icon: <PlusCircle className="h-3.5 w-3.5" />,
+          }}
+        />
         <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
           {RECORDS.map(({ name, healthCard, bloodType, birthDateString }) => {
             const birthDate = new Date(birthDateString).getTime();
