@@ -26,7 +26,7 @@ export default async function Records() {
         <PageHeader
           title="Records"
           link={{
-            href: "/records/create/personal-identification",
+            href: "/records/create/personal",
             text: "Create Record",
             icon: <PlusCircle className="h-3.5 w-3.5" />,
           }}

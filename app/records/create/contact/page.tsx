@@ -9,11 +9,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default async function EmergencyContact() {
+export default async function Contact() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Emergency Contact</CardTitle>
+        <CardTitle>Contact</CardTitle>
       </CardHeader>
       <CardContent>
         <form className="grid gap-4">

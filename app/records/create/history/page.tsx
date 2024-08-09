@@ -9,32 +9,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default async function PersonalIdentification() {
+export default async function History() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Personal Identification</CardTitle>
+        <CardTitle>History</CardTitle>
       </CardHeader>
       <CardContent>
         <form className="grid gap-4">
-          <div className="grid gap-1.5">
+          <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="full-name">Full Name</Label>
             <Input id="full-name" />
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="grid gap-1.5">
-              <Label htmlFor="id-number">ID Number</Label>
-              <Input id="id-number" />
-            </div>
-            <div className="grid gap-1.5">
-              <Label htmlFor="tax-number">Tax Number</Label>
-              <Input id="tax-number" />
-            </div>
-          </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="health-card">Health Card</Label>
             <Input id="health-card" />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="tax-number">Tax Number</Label>
+            <Input id="tax-number" />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="id-number">ID Number</Label>
+            <Input id="id-number" />
           </div>
         </form>
       </CardContent>

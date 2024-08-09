@@ -27,11 +27,11 @@ import {
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 
-export default async function PersonalInformation() {
+export default async function Personal() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Personal Information</CardTitle>
+        <CardTitle>Personal</CardTitle>
       </CardHeader>
       <CardContent>
         <form className="grid gap-4">
@@ -54,7 +54,7 @@ export default async function PersonalInformation() {
                 <PopoverTrigger asChild>
                   <Button
                     variant={"outline"}
-                    className={cn(" font-normal", "text-muted-foreground")}
+                    className={cn("font-normal", "text-muted-foreground")}
                   >
                     <span>Pick a date</span>
                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
