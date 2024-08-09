@@ -30,12 +30,6 @@ export default function RecordsCreateLayout({
       />
       <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <nav className="grid gap-4 text-sm text-muted-foreground">
-          <Link
-            href="/records/create/personal-identification"
-            className="font-semibold text-primary"
-          >
-            Personal Identification
-          </Link>
           <Link href="/records/create/personal-information">
             Personal Information
           </Link>
