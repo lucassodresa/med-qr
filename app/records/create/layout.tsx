@@ -1,15 +1,6 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { PageHeader } from "@/components/page-header";
 import { ArrowLeft } from "lucide-react";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 export default function RecordsCreateLayout({

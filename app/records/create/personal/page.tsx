@@ -1,6 +1,9 @@
 "use client";
+import { ContainerRow } from "@/components/container-row";
+import { DateField } from "@/components/date-field";
+import { InputField } from "@/components/input-field";
+import { SelectField } from "@/components/select-field";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Card,
   CardContent,
@@ -8,128 +11,66 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
+import { useForm } from "@conform-to/react";
+import { personalSchema } from "./schema";
+import { parseWithZod } from "@conform-to/zod";
+import { login } from "./action";
+import { useFormState } from "react-dom";
+import { bloodTypeOptions, genderOptions } from "@/lib/constants";
 
-export default async function Personal() {
+export default function Personal() {
+  const [lastResult, action] = useFormState(login, undefined);
+  const [form, fields] = useForm({
+    lastResult,
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: personalSchema });
+    },
+  });
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Personal</CardTitle>
       </CardHeader>
-      <CardContent>
-        <form className="grid gap-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="grid gap-1.5">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" />
-            </div>
+      <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate>
+        <CardContent>
+          <div className="grid gap-4">
+            <ContainerRow columns={2}>
+              <InputField field={fields.name} label="Name" />
+              <InputField field={fields.idNumber} label="ID Number" />
+            </ContainerRow>
 
-            <div className="grid gap-1.5">
-              <Label htmlFor="id-number">ID Number</Label>
-              <Input id="id-number" />
-            </div>
-          </div>
+            <ContainerRow columns={2}>
+              <DateField name="date-of-birth" label="Date of Birth" />
+              <InputField field={fields.taxNumber} label="Tax Number" />
+            </ContainerRow>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="grid gap-1.5">
-              <Label htmlFor="name">Date of Birth</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn("font-normal", "text-muted-foreground")}
-                  >
-                    <span>Pick a date</span>
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={new Date()}
-                    onSelect={() => {}}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div className="grid gap-1.5">
-              <Label htmlFor="tax-number">Tax Number</Label>
-              <Input id="tax-number" />
-            </div>
+            <ContainerRow columns={2}>
+              <ContainerRow columns={2}>
+                <SelectField
+                  field={fields.bloodType}
+                  label="Blood Type"
+                  placeholder="Select a blood type"
+                  selectItems={bloodTypeOptions}
+                />
+                <SelectField
+                  field={fields.gender}
+                  label="Gender"
+                  placeholder="Select a gender"
+                  selectItems={genderOptions}
+                />
+              </ContainerRow>
+              <InputField field={fields.healthCard} label="Health Card" />
+            </ContainerRow>
           </div>
+        </CardContent>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="grid gap-1.5">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="grid gap-1.5">
-                  <Label htmlFor="health-card">Blood Type</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a blood" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Blood</SelectLabel>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-1.5">
-                  <Label htmlFor="health-card">Gender</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a gender" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Genders</SelectLabel>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-            <div className="grid gap-1.5">
-              <Label htmlFor="health-card">Health Card</Label>
-              <Input id="health-card" />
-            </div>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter className="border-t px-6 py-4">
-        <Button>Save</Button>
-      </CardFooter>
+        <CardFooter className="border-t px-6 py-4">
+          <Button>Save</Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }
