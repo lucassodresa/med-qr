@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { bloodTypeOptions } from "@/lib/constants";
 import { createClient } from "@/utils/supabase/server";
 import { PlusCircle } from "lucide-react";
+import Link from "next/link";
 
 export default async function Records() {
   const supabase = createClient();
@@ -20,8 +21,9 @@ export default async function Records() {
 
   const { data: records, error } = await supabase
     .from("personal-records")
-    .select("*")
-    .eq("owner_id", user?.id);
+    .select("name, health_card, blood_type, date_of_birth")
+    .eq("owner_id", user?.id)
+    .order("created_at", { ascending: false });
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -91,7 +93,11 @@ export default async function Records() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex flex-row border-t p-4">
-                    <Button className="w-full">View</Button>
+                    <Button className="w-full" asChild>
+                      <Link href={`/records/view/${healthCard}/personal`}>
+                        View
+                      </Link>
+                    </Button>
                   </CardFooter>
                 </Card>
               );

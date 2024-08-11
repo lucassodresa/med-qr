@@ -5,21 +5,6 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
-  { name: "Records", href: "/records" },
-  { name: "QR codes", href: "qr-codes" },
-];
-
-const navItems = NAV_ITEMS.map(({ name, href }) => (
-  <Link
-    key={href}
-    className="text-muted-foreground transition-colors hover:text-foreground"
-    href={href}
-  >
-    {name}
-  </Link>
-));
-
 type NavbarProps = {
   isAuthenticated: boolean;
 };
@@ -34,7 +19,6 @@ export const Navbar = ({ isAuthenticated }: NavbarProps) => {
         )}
       >
         <Logo />
-        {isAuthenticated && navItems}
       </nav>
 
       {isAuthenticated && (
@@ -52,7 +36,6 @@ export const Navbar = ({ isAuthenticated }: NavbarProps) => {
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
               <Logo />
-              {navItems}
             </nav>
           </SheetContent>
         </Sheet>
