@@ -9,6 +9,7 @@ import { FieldMetadata, useInputControl } from "@conform-to/react";
 import { z } from "zod";
 import { useRef } from "react";
 import { InputError } from "./input-error";
+import "react-day-picker/dist/style.css";
 
 type DateFieldProps = {
   field: FieldMetadata<string, z.infer<typeof personalSchema>>;
@@ -60,6 +61,9 @@ export const DateField = ({ label, field }: DateFieldProps) => {
             onSelect={handleOnSelect}
             disabled={disabledDates}
             initialFocus
+            captionLayout="dropdown"
+            fromDate={new Date("1900-01-01")}
+            toDate={new Date()}
           />
         </PopoverContent>
       </Popover>

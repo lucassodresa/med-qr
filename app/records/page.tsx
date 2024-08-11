@@ -12,6 +12,13 @@ import { bloodTypeOptions } from "@/lib/constants";
 import { createClient } from "@/utils/supabase/server";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
+import { differenceInYears, parse } from "date-fns";
+
+const calculateAge = (dob: string): number => {
+  const date = parse(dob, "yyyy-MM-dd", new Date());
+  const age = differenceInYears(new Date(), date);
+  return age;
+};
 
 export default async function Records() {
   const supabase = createClient();
@@ -44,9 +51,8 @@ export default async function Records() {
               blood_type: bloodType,
               date_of_birth: birthDateString,
             }) => {
-              const birthDate = new Date(birthDateString).getTime();
-              const now = new Date().getTime();
-              const age = new Date(now - birthDate).getFullYear() - 1970;
+              const age = calculateAge(birthDateString);
+              console.log({ age });
               const bloodTypeLabel = bloodTypeOptions.find(
                 ({ value }) => value === bloodType
               )?.label;
