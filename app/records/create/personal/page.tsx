@@ -1,5 +1,5 @@
 "use client";
-import { ContainerRow } from "@/components/container-row";
+import { Container } from "@/components/container";
 import { DateField } from "@/components/date-field";
 import { InputField } from "@/components/input-field";
 import { SelectField } from "@/components/select-field";
@@ -36,19 +36,19 @@ export default function Personal() {
       </CardHeader>
       <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate>
         <CardContent>
-          <div className="grid gap-4">
-            <ContainerRow columns={2}>
+          <div className="grid gap-3">
+            <Container.WithTwoColumns>
               <InputField field={fields.name} label="Name" />
               <InputField field={fields.idNumber} label="ID Number" />
-            </ContainerRow>
+            </Container.WithTwoColumns>
 
-            <ContainerRow columns={2}>
-              <DateField name="date-of-birth" label="Date of Birth" />
+            <Container.WithTwoColumns>
+              <DateField field={fields.dateOfBirth} label="Date of Birth" />
               <InputField field={fields.taxNumber} label="Tax Number" />
-            </ContainerRow>
+            </Container.WithTwoColumns>
 
-            <ContainerRow columns={2}>
-              <ContainerRow columns={2}>
+            <Container.WithTwoColumns>
+              <Container.WithTwoColumns>
                 <SelectField
                   field={fields.bloodType}
                   label="Blood Type"
@@ -61,9 +61,9 @@ export default function Personal() {
                   placeholder="Select a gender"
                   selectItems={genderOptions}
                 />
-              </ContainerRow>
+              </Container.WithTwoColumns>
               <InputField field={fields.healthCard} label="Health Card" />
-            </ContainerRow>
+            </Container.WithTwoColumns>
           </div>
         </CardContent>
 

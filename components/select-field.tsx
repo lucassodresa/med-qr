@@ -30,7 +30,7 @@ export const SelectField = ({
   if (!field) return;
   const { value, change, blur, focus } = useInputControl(field);
   const inputRef = useRef<HTMLButtonElement>(null);
-  const { name, key, errors } = field;
+  const { name, key, errors, initialValue } = field;
 
   const handleOnValueChange = (value: string) => change(value);
   const handleOnOpenChange = (open: boolean) => !open && blur();
@@ -38,18 +38,23 @@ export const SelectField = ({
 
   return (
     <div className="grid gap-1.5">
+      <input
+        name={name}
+        defaultValue={initialValue}
+        className="sr-only"
+        tabIndex={-1}
+        onFocus={handleOnFocus}
+      />
+
       <Label htmlFor={name} className={cn({ "text-destructive": errors })}>
         {label}
       </Label>
 
-      <input className="sr-only" tabIndex={-1} onFocus={handleOnFocus} />
       <Select
         key={key}
-        name={name}
         value={value}
         onValueChange={handleOnValueChange}
         onOpenChange={handleOnOpenChange}
-        defaultValue=""
       >
         <SelectTrigger onFocus={focus} id={name} ref={inputRef}>
           <SelectValue placeholder={placeholder} />
