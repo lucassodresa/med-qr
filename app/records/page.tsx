@@ -12,15 +12,6 @@ import { bloodTypeOptions } from "@/lib/constants";
 import { createClient } from "@/utils/supabase/server";
 import { PlusCircle } from "lucide-react";
 
-const RECORDS = [
-  {
-    name: "Lucas Sodré",
-    healthCard: "700 9674 9916 0003",
-    bloodType: "A+",
-    birthDateString: "1999-01-25T00:50:00.241Z",
-  },
-];
-
 export default async function Records() {
   const supabase = createClient();
   const {
