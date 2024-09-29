@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/src/utils/supabase/server";
 import { SubmitButton } from "./submit-button";
 import loginCoverPhoto from "@/public/images/login-cover-photo.webp";
 
 const signInWithGoogle = async () => {
   "use server";
-
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -21,7 +20,7 @@ const signInWithGoogle = async () => {
   return redirect(data.url);
 };
 
-export default function Login() {
+export default async function Login() {
   return (
     <>
       <main className="w-full h-screen lg:grid lg:grid-cols-2">

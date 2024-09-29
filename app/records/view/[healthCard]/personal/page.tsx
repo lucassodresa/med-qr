@@ -1,6 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { bloodTypeOptions } from "@/lib/constants";
-import { createClient } from "@/utils/supabase/server";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
+import { bloodTypeOptions } from "@/src/lib/constants";
+import { createClient } from "@/src/utils/supabase/server";
 
 export default async function Personal({
   params,

@@ -1,8 +1,8 @@
 import "./globals.css";
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 import { Inter as FontSans } from "next/font/google";
-import { createClient } from "@/utils/supabase/server";
-import { Header } from "@/components/header";
+import { createClient } from "@/src/utils/supabase/server";
+import { Header } from "@/src/components/header";
 
 const fontSans = FontSans({
   subsets: ["latin"],

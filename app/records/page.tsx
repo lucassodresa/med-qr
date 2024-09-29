@@ -1,16 +1,15 @@
-import { PageHeader } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/src/components/page-header";
+import { Button } from "@/src/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { bloodTypeOptions } from "@/lib/constants";
-import { createClient } from "@/utils/supabase/server";
-import { PlusCircle } from "lucide-react";
+} from "@/src/components/ui/card";
+import { Separator } from "@/src/components/ui/separator";
+import { bloodTypeOptions } from "@/src/lib/constants";
+import { createClient } from "@/src/utils/supabase/server";
 import Link from "next/link";
 import { differenceInYears, parse } from "date-fns";
 
@@ -35,14 +34,7 @@ export default async function Records() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-        <PageHeader
-          title="Records"
-          link={{
-            href: "/records/create/personal",
-            text: "Create Record",
-            icon: <PlusCircle className="h-3.5 w-3.5" />,
-          }}
-        />
+        <PageHeader page="list" />
         <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
           {records?.map(
             ({
@@ -52,7 +44,6 @@ export default async function Records() {
               date_of_birth: birthDateString,
             }) => {
               const age = calculateAge(birthDateString);
-              console.log({ age });
               const bloodTypeLabel = bloodTypeOptions.find(
                 ({ value }) => value === bloodType
               )?.label;
@@ -100,8 +91,8 @@ export default async function Records() {
                   </CardContent>
                   <CardFooter className="flex flex-row border-t p-4">
                     <Button className="w-full" asChild>
-                      <Link href={`/records/view/${healthCard}/personal`}>
-                        View
+                      <Link href={`/records/edit/${healthCard}/personal`}>
+                        Edit
                       </Link>
                     </Button>
                   </CardFooter>
