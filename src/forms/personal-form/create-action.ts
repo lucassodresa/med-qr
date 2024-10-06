@@ -18,7 +18,7 @@ export const createAction = async (_: unknown, formData: FormData) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data, error } = await supabase.from("personal-records").insert({
+  const createPersonalPromise = supabase.from("personal_records").insert({
     name: payload.name,
     id_number: payload.idNumber,
     tax_number: payload.taxNumber,
@@ -29,10 +29,24 @@ export const createAction = async (_: unknown, formData: FormData) => {
     owner_id: user?.id,
   });
 
-  if (error) {
-    console.error(error);
+  const createContactPromise = supabase.from("contact_records").insert({
+    health_card: payload.healthCard,
+    owner_id: user?.id,
+  });
+
+  const [createPersonal, createContact] = await Promise.all([
+    createPersonalPromise,
+    createContactPromise,
+  ]);
+
+  if (createPersonal.error || createContact.error) {
+    createPersonal.error &&
+      console.error("Create Personal", createPersonal.error);
+
+    createContact.error && console.error("Create Contact", createContact.error);
+
     return reply({ formErrors: ["API error"] });
   }
 
-  return redirect("/records");
+  return redirect(`/records/edit/${payload.healthCard}/personal`);
 };

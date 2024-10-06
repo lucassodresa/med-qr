@@ -14,7 +14,7 @@ export default async function Personal({
 }) {
   const supabase = createClient();
   const { data: record } = await supabase
-    .from("personal-records")
+    .from("personal_records")
     .select(
       "name, id_number, tax_number, health_card, gender, blood_type, date_of_birth"
     )

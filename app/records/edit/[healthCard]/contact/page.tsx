@@ -14,9 +14,9 @@ export default async function Contact({
 }) {
   const supabase = createClient();
   const { data: record } = await supabase
-    .from("personal-records")
+    .from("contact_records")
     .select(
-      "name, id_number, tax_number, health_card, gender, blood_type, date_of_birth"
+      "parent1_name, parent1_phone_number, parent2_name, parent2_phone_number"
     )
     .eq("health_card", params.healthCard)
     .maybeSingle();
@@ -24,30 +24,25 @@ export default async function Contact({
   if (!record) return;
 
   const {
-    name,
-    id_number,
-    tax_number,
-    health_card,
-    gender,
-    blood_type,
-    date_of_birth,
+    parent1_name,
+    parent1_phone_number,
+    parent2_name,
+    parent2_phone_number,
   } = record;
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Personal</CardTitle>
+        <CardTitle>Contact</CardTitle>
       </CardHeader>
       <CardContent>
-        <Forms.Personal
+        <Forms.Contact
           initialValues={{
-            name,
-            idNumber: id_number,
-            taxNumber: tax_number,
-            healthCard: health_card,
-            bloodType: blood_type,
-            gender,
-            dateOfBirth: date_of_birth,
+            parent1Name: parent1_name,
+            parent1PhoneNumber: parent1_phone_number,
+            parent2Name: parent2_name,
+            parent2PhoneNumber: parent2_phone_number,
+            healthCard: params.healthCard,
           }}
         />
       </CardContent>

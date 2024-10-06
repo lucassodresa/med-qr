@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/src/utils/supabase/server";
 import { personalSchema } from "@/src/schemas/personal";
 
-export const updateAction = async (_: unknown, formData: FormData) => {
+export const EditAction = async (_: unknown, formData: FormData) => {
   const { status, reply, payload } = parseWithZod(formData, {
     schema: personalSchema,
   });
@@ -19,7 +19,7 @@ export const updateAction = async (_: unknown, formData: FormData) => {
   } = await supabase.auth.getUser();
 
   const { error } = await supabase
-    .from("personal-records")
+    .from("personal_records")
     .update({
       name: payload.name,
       id_number: payload.idNumber,
@@ -36,6 +36,4 @@ export const updateAction = async (_: unknown, formData: FormData) => {
     console.error(error);
     return reply({ formErrors: ["API error"] });
   }
-
-  return redirect("/records");
 };

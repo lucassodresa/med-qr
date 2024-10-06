@@ -11,19 +11,19 @@ import { useFormState } from "react-dom";
 import { bloodTypeOptions, genderOptions } from "@/src/lib/constants";
 import { Button } from "@/src/components/ui/button";
 import { createAction } from "./create-action";
-import { updateAction } from "./update-action";
+import { EditAction } from "./edit-action";
 import { SaveIcon } from "lucide-react";
 import { DeleteActionButton } from "@/src/components/delete-action-button";
 import { deleteAction } from "./delete-action";
 
-interface PersonalProps {
+interface PersonalFormProps {
   initialValues?: Personal;
 }
 
-export const PersonalForm = ({ initialValues }: PersonalProps) => {
+export const PersonalForm = ({ initialValues }: PersonalFormProps) => {
   const isEdit = !!initialValues;
   const [lastResult, action] = useFormState(
-    isEdit ? updateAction : createAction,
+    isEdit ? EditAction : createAction,
     undefined
   );
   const [form, fields] = useForm({

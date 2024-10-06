@@ -26,7 +26,7 @@ export default async function Records() {
   } = await supabase.auth.getUser();
 
   const { data: records, error } = await supabase
-    .from("personal-records")
+    .from("personal_records")
     .select("name, health_card, blood_type, date_of_birth")
     .eq("owner_id", user?.id)
     .order("created_at", { ascending: false });
